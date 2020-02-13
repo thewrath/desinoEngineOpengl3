@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector2f;
+import org.joml.Vector2i;
 
 import fr.monolog.desino.common.Engine;
 import fr.monolog.desino.common.Game;
@@ -30,11 +31,12 @@ public class App implements Game, InputProcessor {
 	@Override
 	public void init() {
 		this.renderer = new Renderer(new Viewport(new Vector2f(0.0f, 0.0f), new Vector2f(860f, 640f)));
-		this.rectangle = new RectangleShape(new Vector2f(100f, 100f),new Vector2f(100f,100f));
+		this.rectangle = new RectangleShape(new Vector2f(100f, 100f),new Vector2f(200f,200f));
 		try {
 			Texture texture = Texture.loadFromImage("./src/main/resources/textures/test.png");
-			TextureRegion textureRegion = new TextureRegion(texture, new Vector2f(0, 0), texture.getSize());
-			this.sprite = new Sprite(new Vector2f(0f,0f), new Vector2f(1200f/4f, 1176f/4f), textureRegion);
+			TextureRegion textureRegion = new TextureRegion(texture, new Vector2f(0, 0), texture.getSize().mul(1f/4f));
+			this.sprite = new Sprite(new Vector2f(0f,0f), textureRegion);
+			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

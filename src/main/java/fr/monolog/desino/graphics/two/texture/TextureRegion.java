@@ -1,5 +1,6 @@
 package fr.monolog.desino.graphics.two.texture;
 
+import org.joml.Matrix2f;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 
@@ -16,9 +17,8 @@ public class TextureRegion {
 		this.origin = origin;
 		this.size = size;
 		
-		this.viewMatrix = new Matrix4f();
-		this.viewMatrix = this.viewMatrix.translation(this.origin.x, this.origin.y, 0).
-                scale(this.size.x, this.size.y, 1);
+		this.viewMatrix = (new Matrix4f()).translate(origin.x, origin.y, 0).scale(size.x, size.y, 1);
+		
 	}
 	
 	public Matrix4f getViewMatrix() {
@@ -27,5 +27,13 @@ public class TextureRegion {
 	
 	public Texture getTexture() {
 		return this.texture;
+	}
+	
+	public Vector2f getOrigin() {
+		return this.origin;
+	}
+	
+	public Vector2f getSize() {
+		return this.size;
 	}
 }

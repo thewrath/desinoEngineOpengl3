@@ -3,6 +3,7 @@ package fr.monolog.desino.graphics.two.texture;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
+import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.lwjgl.system.MemoryStack;
 
@@ -14,10 +15,12 @@ public class Texture {
 
     private final int id;
     private Vector2f size;
+    private Matrix4f projectionMatrix;
     
     private Texture(int id, Vector2f size) {
     	this.id = id;
     	this.size = size;
+    	this.projectionMatrix = (new Matrix4f()).setOrtho(0, this.size.x, this.size.y, 0, 0, 1);
     }
 
     public void bind() {
@@ -65,7 +68,6 @@ public class Texture {
             glGenerateMipmap(GL_TEXTURE_2D);
 
             stbi_image_free(buf);
-            
             return new Texture(textureId, new Vector2f(width, height));
         }
     }
@@ -77,4 +79,12 @@ public class Texture {
 	public void dispose() {
         glDeleteTextures(id);
     }
+
+	public Matrix4f getProjectionMatrix() {
+		return projectionMatrix;
+	}
+
+	public void setProjectionMatrix(Matrix4f projectionMatrix) {
+		this.projectionMatrix = projectionMatrix;
+	}
 }

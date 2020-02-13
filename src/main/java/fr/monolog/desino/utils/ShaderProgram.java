@@ -2,6 +2,8 @@ package fr.monolog.desino.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.joml.Matrix2f;
 import org.joml.Matrix4f;
 import static org.lwjgl.opengl.GL20.*;
 import org.lwjgl.system.MemoryStack;
@@ -35,9 +37,14 @@ public class ShaderProgram {
     public void setUniform(String uniformName, Matrix4f value) {
         // Dump the matrix into a float buffer
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            glUniformMatrix4fv(uniforms.get(uniformName), false,
-                               value.get(stack.mallocFloat(16)));
+            glUniformMatrix4fv(uniforms.get(uniformName), false, value.get(stack.mallocFloat(16)));
         }
+    }
+    
+    public void setUniform(String uniformName, Matrix2f value) {
+    	try (MemoryStack stack = MemoryStack.stackPush()) {
+    		glUniformMatrix2fv(uniforms.get(uniformName), false, value.get(stack.mallocFloat(4)));
+    	}
     }
 
     public void setUniform(String uniformName, int value) {
